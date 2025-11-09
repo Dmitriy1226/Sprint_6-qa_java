@@ -23,18 +23,27 @@ public class LionTest {
     }
 
     @Test
-    public void getKittensDelegatesToFeline() throws Exception {
+    public void getKittensReturnsValueFromFeline() throws Exception {
         Mockito.when(feline.getKittens()).thenReturn(3);
 
         Lion lion = new Lion(feline, "Самец");
-        int kittens = lion.getKittens();
+        int actualKittens = lion.getKittens();
 
-        assertEquals(3, kittens);
+        assertEquals(3, actualKittens);
+    }
+
+    @Test
+    public void getKittensCallsFelineGetKittens() throws Exception {
+        Mockito.when(feline.getKittens()).thenReturn(1);
+
+        Lion lion = new Lion(feline, "Самец");
+        lion.getKittens();
+
         Mockito.verify(feline).getKittens();
     }
 
     @Test
-    public void getFoodUsesFelineEatMeat() throws Exception {
+    public void getFoodReturnsFoodFromFeline() throws Exception {
         List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
         Mockito.when(feline.eatMeat()).thenReturn(expectedFood);
 
@@ -42,6 +51,13 @@ public class LionTest {
         List<String> actualFood = lion.getFood();
 
         assertEquals(expectedFood, actualFood);
+    }
+
+    @Test
+    public void getFoodCallsFelineEatMeat() throws Exception {
+        Lion lion = new Lion(feline, "Самка");
+        lion.getFood();
+
         Mockito.verify(feline).eatMeat();
     }
 }

@@ -10,11 +10,9 @@ public class FelineTest {
     @Test
     public void eatMeatReturnsPredatorFoodList() throws Exception {
         Feline feline = new Feline();
-        List<String> food = feline.eatMeat();
-        assertEquals(3, food.size());
-        assertTrue(food.contains("Животные"));
-        assertTrue(food.contains("Птицы"));
-        assertTrue(food.contains("Рыба"));
+        List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
+        List<String> actualFood = feline.eatMeat();
+        assertEquals(expectedFood, actualFood);
     }
 
     @Test
